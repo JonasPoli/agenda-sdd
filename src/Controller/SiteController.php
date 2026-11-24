@@ -16,8 +16,11 @@ final class SiteController extends AbstractController
     #[Route('/', name: 'site_home', methods: ['GET'])]
     public function home(): Response
     {
+        $home = $this->eventos->homeComDestaques();
+
         return $this->render('site/home.html.twig', [
-            'eventos' => $this->eventos->publicadosAPartirDeHoje(),
+            'destaques' => $home['destaques'],
+            'eventos' => $home['demais'],
         ]);
     }
 

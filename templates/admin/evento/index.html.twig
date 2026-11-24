@@ -22,6 +22,7 @@
                         <th>Local</th>
                         <th>Categoria</th>
                         <th>Situação</th>
+                        <th>Destaque</th>
                         <th class="acoes"><span class="wa-visually-hidden">Ações</span></th>
                     </tr>
                 </thead>
@@ -37,6 +38,11 @@
                                     <wa-badge variant="success">Publicado</wa-badge>
                                 {% else %}
                                     <wa-badge variant="warning">Rascunho</wa-badge>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if evento.destaque %}
+                                    <wa-badge variant="brand"><wa-icon name="star"></wa-icon> Destaque</wa-badge>
                                 {% endif %}
                             </td>
                             <td class="acoes">

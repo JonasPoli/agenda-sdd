@@ -49,6 +49,12 @@ class Evento
     #[ORM\Column(options: ['default' => false])]
     private bool $publicado = false;
 
+    /**
+     * A home mostra no topo até 3 destaques publicados; os demais ficam na lista.
+     */
+    #[ORM\Column(options: ['default' => false])]
+    private bool $destaque = false;
+
     #[ORM\ManyToOne(targetEntity: Categoria::class, inversedBy: 'eventos')]
     #[ORM\JoinColumn(nullable: false, onDelete: 'RESTRICT')]
     #[Assert\NotNull(message: 'Selecione a categoria.')]
@@ -139,6 +145,18 @@ class Evento
     public function setPublicado(bool $publicado): static
     {
         $this->publicado = $publicado;
+
+        return $this;
+    }
+
+    public function isDestaque(): bool
+    {
+        return $this->destaque;
+    }
+
+    public function setDestaque(bool $destaque): static
+    {
+        $this->destaque = $destaque;
 
         return $this;
     }

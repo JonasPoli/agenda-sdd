@@ -65,6 +65,12 @@ final class EventoType extends AbstractType
             ->add('publicado', CheckboxType::class, [
                 'label' => 'Publicado',
                 'required' => false,
+            ])
+            // Sem limite no formulário: o limite de 3 vale só para o bloco da home
+            ->add('destaque', CheckboxType::class, [
+                'label' => 'Destaque',
+                'required' => false,
+                'help' => 'A página inicial mostra no topo até 3 destaques publicados, os mais próximos; os demais ficam na lista.',
             ]);
     }
 

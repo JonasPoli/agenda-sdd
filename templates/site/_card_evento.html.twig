@@ -1,0 +1,15 @@
+{# Card do evento, usado no bloco de destaques e na lista da home. Parâmetro: evento #}
+<a href="{{ path('site_evento', {slug: evento.slug}) }}"
+   class="flex h-full flex-col gap-3 rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-indigo-300 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+    <div>{{ include('site/_selo_categoria.html.twig', {categoria: evento.categoria}) }}</div>
+    <h2 class="text-lg font-semibold break-words text-slate-900">{{ evento.titulo }}</h2>
+    <p class="text-sm font-medium text-indigo-700">
+        <time datetime="{{ evento.inicio|date('Y-m-d\\TH:i') }}">{{ evento.inicio|date('d/m/Y H:i') }}</time>
+    </p>
+    {% if evento.local %}
+        <p class="text-sm break-words text-slate-600">{{ evento.local }}</p>
+    {% endif %}
+    {% if evento.resumo %}
+        <p class="text-sm break-words text-slate-700">{{ evento.resumo }}</p>
+    {% endif %}
+</a>

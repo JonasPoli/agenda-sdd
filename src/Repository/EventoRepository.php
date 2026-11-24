@@ -37,6 +37,28 @@ class EventoRepository extends ServiceEntityRepository
     }
 
     /**
+     * Home com destaques: os primeiros $maxDestaques destaques vão para o bloco do topo; todo o resto
+     * (inclusive destaques que não couberem) fica na lista, na ordem original por data.
+     *
+     * @return array{destaques: list<Evento>, demais: list<Evento>}
+     */
+    public function homeComDestaques(int $maxDestaques = 3): array
+    {
+        $destaques = [];
+        $demais = [];
+
+        foreach ($this->publicadosAPartirDeHoje() as $evento) {
+            if ($evento->isDestaque() && \count($destaques) < $maxDestaques) {
+                $destaques[] = $evento;
+            } else {
+                $demais[] = $evento;
+            }
+        }
+
+        return ['destaques' => $destaques, 'demais' => $demais];
+    }
+
+    /**
      * Painel: os próximos eventos a partir de agora, publicados ou não.
      *
      * @return list<Evento>
