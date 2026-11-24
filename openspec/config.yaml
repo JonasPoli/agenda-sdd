@@ -1,0 +1,39 @@
+schema: spec-driven
+
+context: |
+  Language: Portuguese (pt-BR)
+  All artifacts must be written in Brazilian Portuguese.
+  Keep OpenSpec structural headings and the SHALL/MUST keywords in English,
+  because validation relies on them. WHEN/THEN in scenarios also stay in English.
+
+  Projeto: Agenda de Eventos (aula de SDD).
+
+  Stack:
+  - PHP 8.4, Symfony 8 (webapp), Doctrine ORM com MySQL, Twig, AssetMapper.
+  - Site público: Tailwind CSS via symfonycasts/tailwind-bundle, com worker
+    "tailwind" no arquivo .symfony.local.yaml.
+  - Área administrativa: Web Awesome 3 via CDN (sucessor do Shoelace), com
+    layout próprio em templates/admin/base.html.twig. O admin NÃO carrega o
+    CSS do Tailwind. Formulários usam elementos nativos estilizados pelo
+    Web Awesome; botões, cards, diálogos, badges e ícones usam componentes wa-*.
+  - Autenticação: Security do Symfony com form login e ROLE_ADMIN.
+
+  Convenções:
+  - Entidades e domínio em português sem acento: Categoria, Evento, Usuario.
+  - Rotas do admin com prefixo /admin e nomes admin_*; rotas do site sem prefixo.
+  - Controllers finos; consultas nos Repositories.
+  - Toda mudança de banco por migration (make:migration e doctrine:migrations:migrate).
+  - Datas exibidas como dd/mm/aaaa HH:mm, fuso America/Sao_Paulo.
+  - Não usar EasyAdmin nem outro bundle de painel pronto.
+
+rules:
+  proposal:
+    - Liste explicitamente o que está fora do escopo.
+  tasks:
+    - Agrupe as tarefas por camada (banco, admin, site público, verificação).
+    - Termine cada grupo com uma tarefa de verificação (comando ou teste no navegador).
+
+operations:
+  apply:
+    guidance:
+      - Rode php bin/console lint:twig templates e php bin/console doctrine:schema:validate antes de marcar como concluída uma tarefa de template ou de entidade.
