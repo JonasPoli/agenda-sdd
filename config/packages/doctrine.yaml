@@ -7,6 +7,10 @@ doctrine:
         #server_version: '16'
 
         profiling_collect_backtrace: '%kernel.debug%'
+        # Nome de categoria único sem diferenciar maiúsculas (ver design.md, decisão 5)
+        default_table_options:
+            charset: utf8mb4
+            collation: utf8mb4_unicode_ci
         use_savepoints: true
     orm:
         auto_generate_proxy_classes: true

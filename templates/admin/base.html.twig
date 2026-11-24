@@ -1,0 +1,64 @@
+{% set web_awesome = 'https://ka-f.webawesome.com/webawesome@3.15.0' %}
+{% set rota = app.request.attributes.get('_route', '') %}
+<!DOCTYPE html>
+<html lang="pt-BR" class="wa-cloak">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Admin{% endblock %} · Agenda</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>📅</text></svg>">
+        {# Web Awesome 3 em versão fixa: uma atualização do CDN não muda o admin #}
+        <link rel="stylesheet" href="{{ web_awesome }}/styles/webawesome.css">
+        <script type="module" src="{{ web_awesome }}/webawesome.loader.js"></script>
+        {% block javascripts %}
+            {{ importmap('admin') }}
+        {% endblock %}
+    </head>
+    {# Turbo Drive desligado no admin para não conflitar com os web components e diálogos #}
+    <body data-turbo="false" class="admin">
+        {% block layout %}
+            <div class="admin-grade">
+                <nav class="admin-menu" aria-label="Menu do admin">
+                    <a class="admin-marca" href="{{ path('admin_painel') }}">
+                        <wa-icon name="calendar-days"></wa-icon> Agenda
+                    </a>
+                    <ul>
+                        {% for item in [
+                            {rota: 'admin_painel', prefixo: 'admin_painel', icone: 'gauge', rotulo: 'Painel'},
+                            {rota: 'admin_categoria_index', prefixo: 'admin_categoria', icone: 'tags', rotulo: 'Categorias'},
+                            {rota: 'admin_evento_index', prefixo: 'admin_evento', icone: 'calendar-check', rotulo: 'Eventos'},
+                        ] %}
+                            <li>
+                                <a href="{{ path(item.rota) }}" {{ rota starts with item.prefixo ? 'class="ativo" aria-current="page"' }}>
+                                    <wa-icon name="{{ item.icone }}" fixed-width></wa-icon> {{ item.rotulo }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="admin-usuario">
+                        <span><wa-icon name="user"></wa-icon> {{ app.user.nome }}</span>
+                        <a href="{{ path('app_logout') }}"><wa-icon name="right-from-bracket"></wa-icon> Sair</a>
+                    </div>
+                </nav>
+
+                <main class="admin-conteudo">
+                    <header class="admin-cabecalho">
+                        <h1>{% block titulo_pagina %}{% endblock %}</h1>
+                        <div class="admin-acoes">{% block acoes %}{% endblock %}</div>
+                    </header>
+
+                    {% for tipo, mensagens in app.flashes(['sucesso', 'erro']) %}
+                        {% for mensagem in mensagens %}
+                            <wa-callout variant="{{ tipo == 'sucesso' ? 'success' : 'danger' }}" class="admin-mensagem">
+                                <wa-icon slot="icon" name="{{ tipo == 'sucesso' ? 'circle-check' : 'triangle-exclamation' }}"></wa-icon>
+                                {{ mensagem }}
+                            </wa-callout>
+                        {% endfor %}
+                    {% endfor %}
+
+                    {% block body %}{% endblock %}
+                </main>
+            </div>
+        {% endblock %}
+    </body>
+</html>

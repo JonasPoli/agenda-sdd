@@ -1,0 +1,62 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Categorias{% endblock %}
+{% block titulo_pagina %}Categorias{% endblock %}
+
+{% block acoes %}
+    <wa-button variant="brand" href="{{ path('admin_categoria_nova') }}">
+        <wa-icon slot="start" name="plus"></wa-icon> Nova categoria
+    </wa-button>
+{% endblock %}
+
+{% block body %}
+    {% if linhas is empty %}
+        <div class="admin-painel-quadro estado-vazio">Nenhuma categoria cadastrada.</div>
+    {% else %}
+        <div data-controller="confirmar-exclusao">
+            <table class="admin-tabela">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Cor</th>
+                        <th>Situação</th>
+                        <th>Eventos</th>
+                        <th class="acoes"><span class="wa-visually-hidden">Ações</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for linha in linhas %}
+                        {% set categoria = linha.categoria %}
+                        <tr>
+                            <td>{{ categoria.nome }}</td>
+                            <td>
+                                <span class="amostra-cor" style="background-color: {{ categoria.cor }}"></span>
+                                <code>{{ categoria.cor }}</code>
+                            </td>
+                            <td>
+                                {% if categoria.ativa %}
+                                    <wa-badge variant="success">Ativa</wa-badge>
+                                {% else %}
+                                    <wa-badge variant="neutral">Inativa</wa-badge>
+                                {% endif %}
+                            </td>
+                            <td>{{ linha.totalEventos }}</td>
+                            <td class="acoes">
+                                <wa-button size="small" appearance="plain" href="{{ path('admin_categoria_editar', {id: categoria.id}) }}">
+                                    <wa-icon slot="start" name="pen"></wa-icon> Editar
+                                </wa-button>
+                                {{ include('admin/_botao_excluir.html.twig', {
+                                    url: path('admin_categoria_excluir', {id: categoria.id}),
+                                    token: csrf_token('excluir_categoria_' ~ categoria.id),
+                                    titulo: 'a categoria "' ~ categoria.nome ~ '"',
+                                }) }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {{ include('admin/_dialogo_exclusao.html.twig') }}
+        </div>
+    {% endif %}
+{% endblock %}

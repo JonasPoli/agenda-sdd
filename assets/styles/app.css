@@ -1,3 +1,4 @@
-body {
-    background-color: skyblue;
-}
+@import "tailwindcss";
+
+/* Classes usadas nos templates do site público */
+@source "../../templates";

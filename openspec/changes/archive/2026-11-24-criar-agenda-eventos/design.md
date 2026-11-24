@@ -121,7 +121,7 @@ Um único `wa-dialog` por página de lista e um controller Stimulus `confirmar-e
 | Rota | Nome | Observação |
 |---|---|---|
 | `GET /` | `site_home` | lista pública |
-| `GET /evento/{slug}` | `site_evento` | 404 se não publicado |
+| `GET /evento/{slug}` | `site_evento` | 404 com a página *Evento não encontrado* se não existir ou não estiver publicado |
 | `/login`, `/logout` | `app_login`, `app_logout` | segurança |
 | `GET /admin` | `admin_painel` | |
 | `/admin/categorias[/nova, /{id}/editar, /{id}/excluir]` | `admin_categoria_*` | excluir só via POST |
@@ -130,6 +130,13 @@ Um único `wa-dialog` por página de lista e um controller Stimulus `confirmar-e
 ### 11. Cor legível no selo da categoria
 
 Um filtro Twig `cor_texto` calcula a luminância da cor da categoria e devolve `#000000` ou `#FFFFFF`, garantindo texto legível no selo do site e do admin com qualquer cor cadastrada.
+
+### 12. Página de evento não encontrado
+
+O `site_evento` renderiza `site/evento_nao_encontrado.html.twig`, no layout do site, com status 404, em vez de lançar `createNotFoundException`.
+
+- Por quê: a resposta é a mesma para slug inexistente e para rascunho, de modo que ninguém descobre que um rascunho existe, e a página aparece igual em dev e em produção (sem a tela de exceção do Symfony nem a página de erro padrão em inglês).
+- Alternativa descartada: o template global `templates/bundles/TwigBundle/Exception/error404.html.twig`, que falaria em "evento" também para qualquer URL inexistente do site e do admin.
 
 ## Risks / Trade-offs
 

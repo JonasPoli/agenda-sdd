@@ -1,0 +1,44 @@
+{# Form theme do admin: elementos nativos (estilizados pelo Web Awesome) com os erros logo abaixo do campo #}
+{% extends 'form_div_layout.html.twig' %}
+
+{%- block form_row -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~ '_help'}} -%}
+    {%- endif -%}
+    {%- if errors|length > 0 -%}
+        {%- set widget_attr = widget_attr|merge({attr: (widget_attr.attr ?? {})|merge({'aria-invalid': 'true'})}) -%}
+    {%- endif -%}
+    <div class="campo{{ errors|length > 0 ? ' campo-com-erro' }}">
+        {{- form_label(form) -}}
+        {{- form_widget(form, widget_attr) -}}
+        {{- form_help(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock form_row -%}
+
+{%- block checkbox_row -%}
+    <div class="campo{{ errors|length > 0 ? ' campo-com-erro' }}">
+        <label>
+            {{- form_widget(form) }} {{ label is not same as(false) ? (label is empty ? name|humanize : label|trans({}, translation_domain)) -}}
+        </label>
+        {{- form_help(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock checkbox_row -%}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        <ul class="campo-erros">
+            {%- for error in errors -%}
+                <li>{{ error.message }}</li>
+            {%- endfor -%}
+        </ul>
+    {%- endif -%}
+{%- endblock form_errors -%}
+
+{%- block form_help -%}
+    {%- if help is not empty -%}
+        <div id="{{ id }}_help" class="campo-ajuda">{{ help|trans(help_translation_parameters, translation_domain) }}</div>
+    {%- endif -%}
+{%- endblock form_help -%}

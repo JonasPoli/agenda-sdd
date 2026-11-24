@@ -1,0 +1,31 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Entrar{% endblock %}
+
+{% block layout %}
+    <main class="admin-login">
+        <wa-card>
+            <h1 slot="header" class="wa-heading-m">Agenda · Entrar</h1>
+
+            {% if erro %}
+                <wa-callout variant="danger" class="admin-mensagem">
+                    <wa-icon slot="icon" name="triangle-exclamation"></wa-icon>
+                    E-mail ou senha inválidos.
+                </wa-callout>
+            {% endif %}
+
+            <form method="post" action="{{ path('app_login') }}">
+                <label>
+                    E-mail
+                    <input type="email" name="email" value="{{ ultimo_email }}" autocomplete="email" required autofocus>
+                </label>
+                <label>
+                    Senha
+                    <input type="password" name="senha" autocomplete="current-password" required>
+                </label>
+                <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+                <wa-button type="submit" variant="brand">Entrar</wa-button>
+            </form>
+        </wa-card>
+    </main>
+{% endblock %}

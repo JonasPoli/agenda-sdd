@@ -1,0 +1,54 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Painel{% endblock %}
+{% block titulo_pagina %}Painel{% endblock %}
+
+{% block body %}
+    <div class="wa-grid" style="--min-column-size: 14rem; margin-bottom: var(--wa-space-xl)">
+        <wa-card>
+            <div class="wa-stack wa-gap-2xs">
+                <span class="wa-caption-m"><wa-icon name="tags"></wa-icon> Categorias</span>
+                <strong class="wa-heading-2xl">{{ total_categorias }}</strong>
+            </div>
+        </wa-card>
+        <wa-card>
+            <div class="wa-stack wa-gap-2xs">
+                <span class="wa-caption-m"><wa-icon name="calendar-check"></wa-icon> Eventos</span>
+                <strong class="wa-heading-2xl">{{ total_eventos }}</strong>
+            </div>
+        </wa-card>
+    </div>
+
+    <h2 class="wa-heading-l">Próximos eventos</h2>
+
+    {% if proximos is empty %}
+        <div class="admin-painel-quadro estado-vazio">Nenhum evento agendado.</div>
+    {% else %}
+        <table class="admin-tabela">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Início</th>
+                    <th>Categoria</th>
+                    <th>Situação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for evento in proximos %}
+                    <tr>
+                        <td><a href="{{ path('admin_evento_editar', {id: evento.id}) }}">{{ evento.titulo }}</a></td>
+                        <td class="data">{{ evento.inicio|date('d/m/Y H:i') }}</td>
+                        <td>{{ include('admin/_selo_categoria.html.twig', {categoria: evento.categoria}) }}</td>
+                        <td>
+                            {% if evento.publicado %}
+                                <wa-badge variant="success">Publicado</wa-badge>
+                            {% else %}
+                                <wa-badge variant="warning">Rascunho</wa-badge>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

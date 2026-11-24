@@ -1,0 +1,11 @@
+{# Diálogo único de confirmação; o controller Stimulus confirmar-exclusao preenche ação, token e título #}
+<wa-dialog label="Confirmar exclusão" data-confirmar-exclusao-target="dialogo">
+    <p>Deseja excluir <strong data-confirmar-exclusao-target="titulo"></strong>? Esta ação não pode ser desfeita.</p>
+    <form method="post" data-confirmar-exclusao-target="formulario">
+        <input type="hidden" name="_token" data-confirmar-exclusao-target="token">
+    </form>
+    <wa-button slot="footer" appearance="outlined" data-action="click->confirmar-exclusao#cancelar">Cancelar</wa-button>
+    <wa-button slot="footer" variant="danger" data-action="click->confirmar-exclusao#confirmar">
+        <wa-icon slot="start" name="trash"></wa-icon> Excluir
+    </wa-button>
+</wa-dialog>

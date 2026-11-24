@@ -1,0 +1,220 @@
+/* Layout da área administrativa (Web Awesome 3 vem por CDN no templates/admin/base.html.twig) */
+
+body.admin {
+    margin: 0;
+    background: var(--wa-color-surface-lowered);
+}
+
+.admin-grade {
+    display: grid;
+    grid-template-columns: 15rem 1fr;
+    min-height: 100vh;
+}
+
+/* Menu lateral escuro */
+.admin-menu {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wa-space-l);
+    height: 100vh;
+    padding: var(--wa-space-l) var(--wa-space-m);
+    box-sizing: border-box;
+    background: #111827;
+    color: #e5e7eb;
+}
+
+.admin-menu a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.admin-marca {
+    font-size: var(--wa-font-size-l);
+    font-weight: var(--wa-font-weight-bold);
+    padding: 0 var(--wa-space-s);
+}
+
+.admin-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wa-space-2xs);
+}
+
+.admin-menu li a {
+    display: flex;
+    align-items: center;
+    gap: var(--wa-space-s);
+    padding: var(--wa-space-s);
+    border-radius: var(--wa-border-radius-m);
+}
+
+.admin-menu li a:hover {
+    background: #1f2937;
+}
+
+.admin-menu li a.ativo {
+    background: var(--wa-color-brand-fill-loud);
+    color: var(--wa-color-brand-on-loud);
+    font-weight: var(--wa-font-weight-semibold);
+}
+
+.admin-usuario {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wa-space-s);
+    padding: var(--wa-space-s);
+    border-top: 1px solid #374151;
+    font-size: var(--wa-font-size-s);
+}
+
+.admin-usuario a:hover {
+    text-decoration: underline;
+}
+
+/* Conteúdo */
+.admin-conteudo {
+    padding: var(--wa-space-xl);
+    min-width: 0;
+}
+
+.admin-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--wa-space-m);
+    margin-bottom: var(--wa-space-l);
+}
+
+.admin-cabecalho h1 {
+    margin: 0;
+    font-size: var(--wa-font-size-2xl);
+}
+
+.admin-mensagem {
+    margin-bottom: var(--wa-space-l);
+}
+
+.admin-painel-quadro {
+    background: var(--wa-color-surface-default);
+    border: 1px solid var(--wa-color-surface-border);
+    border-radius: var(--wa-border-radius-l);
+    padding: var(--wa-space-l);
+}
+
+/* Tabelas */
+.admin-tabela {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--wa-color-surface-default);
+}
+
+.admin-tabela th,
+.admin-tabela td {
+    text-align: left;
+    vertical-align: middle;
+    padding: var(--wa-space-s) var(--wa-space-m);
+    border-bottom: 1px solid var(--wa-color-surface-border);
+}
+
+.admin-tabela th {
+    font-size: var(--wa-font-size-s);
+    color: var(--wa-color-text-quiet);
+}
+
+.admin-tabela .data {
+    white-space: nowrap;
+}
+
+.admin-tabela .acoes {
+    white-space: nowrap;
+    text-align: right;
+}
+
+.admin-tabela .acoes form {
+    display: inline;
+}
+
+.amostra-cor {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: var(--wa-border-radius-s);
+    border: 1px solid var(--wa-color-surface-border);
+    vertical-align: middle;
+}
+
+.selo-categoria {
+    display: inline-block;
+    padding: 0.125rem 0.5rem;
+    border-radius: var(--wa-border-radius-pill);
+    font-size: var(--wa-font-size-xs);
+    font-weight: var(--wa-font-weight-semibold);
+}
+
+.estado-vazio {
+    padding: var(--wa-space-xl);
+    text-align: center;
+    color: var(--wa-color-text-quiet);
+}
+
+/* Formulários */
+.admin-formulario {
+    max-width: 40rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wa-space-l);
+}
+
+.admin-formulario .campo-erros {
+    margin: var(--wa-space-2xs) 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--wa-color-danger-on-quiet);
+    font-size: var(--wa-font-size-s);
+}
+
+.admin-formulario .campo-ajuda {
+    color: var(--wa-color-text-quiet);
+    font-size: var(--wa-font-size-s);
+}
+
+.admin-formulario .botoes {
+    display: flex;
+    gap: var(--wa-space-s);
+}
+
+/* Login */
+.admin-login {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: var(--wa-space-l);
+    box-sizing: border-box;
+}
+
+.admin-login wa-card {
+    width: min(24rem, 100%);
+}
+
+.admin-login form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wa-space-m);
+}
+
+@media (max-width: 48rem) {
+    .admin-grade {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-menu {
+        position: static;
+        height: auto;
+    }
+}

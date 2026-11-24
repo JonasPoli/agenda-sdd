@@ -1,5 +1,10 @@
 twig:
     file_name_pattern: '*.twig'
+    date:
+        timezone: America/Sao_Paulo
+        format: 'd/m/Y H:i'
+    # Só o admin tem formulários; o tema põe os erros junto ao campo
+    form_themes: ['admin/form/tema.html.twig']
 
 when@test:
     twig:

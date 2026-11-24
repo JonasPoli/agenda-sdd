@@ -1,0 +1,8 @@
+{# Parâmetros: url, token, titulo #}
+<wa-button size="small" variant="danger" appearance="plain"
+    data-action="click->confirmar-exclusao#abrir"
+    data-confirmar-exclusao-url-param="{{ url }}"
+    data-confirmar-exclusao-token-param="{{ token }}"
+    data-confirmar-exclusao-titulo-param="{{ titulo }}">
+    <wa-icon slot="start" name="trash"></wa-icon> Excluir
+</wa-button>

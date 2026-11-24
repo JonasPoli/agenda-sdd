@@ -1,0 +1,21 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}{{ titulo }}{% endblock %}
+{% block titulo_pagina %}{{ titulo }}{% endblock %}
+
+{% block body %}
+    <div class="admin-painel-quadro">
+        {# novalidate: as regras são do servidor e os erros aparecem junto ao campo #}
+        {{ form_start(form, {attr: {class: 'admin-formulario', novalidate: 'novalidate'}}) }}
+            {{ form_row(form.nome) }}
+            {{ form_row(form.cor) }}
+            {{ form_row(form.ativa) }}
+            <div class="botoes">
+                <wa-button type="submit" variant="brand">
+                    <wa-icon slot="start" name="floppy-disk"></wa-icon> Salvar
+                </wa-button>
+                <wa-button appearance="outlined" href="{{ path('admin_categoria_index') }}">Cancelar</wa-button>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Próximos eventos · Agenda{% endblock %}
+
+{% block body %}
+    <h1 class="mb-6 text-3xl font-bold text-slate-900">Próximos eventos</h1>
+
+    {% if eventos is empty %}
+        <p class="rounded-lg border border-slate-200 bg-white p-8 text-center text-slate-500">Nenhum evento agendado no momento.</p>
+    {% else %}
+        <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {% for evento in eventos %}
+                <li>
+                    <a href="{{ path('site_evento', {slug: evento.slug}) }}"
+                       class="flex h-full flex-col gap-3 rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-indigo-300 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500">
+                        <div>{{ include('site/_selo_categoria.html.twig', {categoria: evento.categoria}) }}</div>
+                        <h2 class="text-lg font-semibold break-words text-slate-900">{{ evento.titulo }}</h2>
+                        <p class="text-sm font-medium text-indigo-700">
+                            <time datetime="{{ evento.inicio|date('Y-m-d\\TH:i') }}">{{ evento.inicio|date('d/m/Y H:i') }}</time>
+                        </p>
+                        {% if evento.local %}
+                            <p class="text-sm break-words text-slate-600">{{ evento.local }}</p>
+                        {% endif %}
+                        {% if evento.resumo %}
+                            <p class="text-sm break-words text-slate-700">{{ evento.resumo }}</p>
+                        {% endif %}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

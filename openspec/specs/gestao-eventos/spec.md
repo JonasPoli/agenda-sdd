@@ -1,10 +1,10 @@
-# Spec Delta
+# gestao-eventos Specification
 
 ## Purpose
 
 Permite ao administrador cadastrar, publicar e manter os eventos da agenda, cada um com um endereço público estável.
 
-## ADDED Requirements
+## Requirements
 
 ### Requirement: Listagem de eventos
 A página `/admin/eventos` SHALL listar todos os eventos em uma tabela, em ordem decrescente de data e hora de início, com título, data e hora de início (dd/mm/aaaa HH:mm, horário de Brasília), local, categoria (com a cor) e situação (publicado ou rascunho), além das ações Editar e Excluir e do botão Novo evento.
@@ -18,11 +18,15 @@ A página `/admin/eventos` SHALL listar todos os eventos em uma tabela, em ordem
 - **THEN** a página exibe "Nenhum evento cadastrado." e o botão Novo evento
 
 ### Requirement: Cadastro e edição de evento
-O administrador SHALL poder criar e editar eventos com título, resumo, descrição, data e hora de início, local, categoria e publicado. Um evento novo MUST vir com publicado desmarcado. Após salvar com sucesso, o sistema MUST voltar à lista com a mensagem "Evento salvo com sucesso."
+O administrador SHALL poder criar e editar eventos com título, resumo, descrição, data e hora de início, local, categoria e publicado. Um evento novo MUST vir com publicado desmarcado. Após salvar com sucesso, o sistema MUST voltar à lista com a mensagem "Evento salvo com sucesso." Um evento em rascunho MUST NOT ficar acessível no site público.
 
 #### Scenario: Criar evento como rascunho
 - **WHEN** o administrador preenche título, data e hora e categoria e salva sem marcar publicado
 - **THEN** o evento é gravado como rascunho e aparece na lista com a mensagem de sucesso
+
+#### Scenario: Acessar URL pública de evento em rascunho
+- **WHEN** um visitante acessa o endereço de um evento em rascunho, como `/evento/festival-de-musica-arte-2026`
+- **THEN** o sistema exibe a página "Evento não encontrado" com status 404, sem nenhum dado do evento
 
 #### Scenario: Publicar evento existente
 - **WHEN** o administrador edita um rascunho, marca publicado e salva

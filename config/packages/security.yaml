@@ -3,9 +3,12 @@ security:
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
-    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+    # Administradores ficam na tabela usuario e entram pelo e-mail
     providers:
-        users_in_memory: { memory: null }
+        app_usuario_provider:
+            entity:
+                class: App\Entity\Usuario
+                property: email
 
     firewalls:
         dev:
@@ -14,18 +17,21 @@ security:
             security: false
         main:
             lazy: true
-            provider: users_in_memory
-
-            # Activate different ways to authenticate:
-            # https://symfony.com/doc/current/security.html#the-firewall
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+            provider: app_usuario_provider
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                username_parameter: email
+                password_parameter: senha
+                enable_csrf: true
+                default_target_path: admin_painel
+            logout:
+                path: app_logout
+                target: app_login
 
     # Note: Only the *first* matching rule is applied
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
 
 when@test:
     security:

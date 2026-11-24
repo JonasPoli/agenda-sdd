@@ -6,6 +6,14 @@ Dá ao administrador uma visão geral da agenda ao entrar na área administrativ
 
 ## ADDED Requirements
 
+### Requirement: Acesso ao painel sem sessão
+A página `/admin` MUST exigir um administrador autenticado. Um visitante sem sessão SHALL ser levado ao formulário de login em `/login` e, depois de entrar, MUST voltar ao painel.
+
+#### Scenario: Visitante deslogado acessa o painel
+- **WHEN** um visitante sem sessão acessa `/admin`
+- **THEN** ele é redirecionado para `/login`, que exibe o formulário de e-mail e senha
+- **AND** depois de entrar com credenciais válidas ele é levado a `/admin`
+
 ### Requirement: Totais no painel
 A página `/admin` SHALL exibir o total de categorias e o total de eventos cadastrados, contando todos os registros, inclusive categorias inativas e eventos não publicados ou passados.
 
